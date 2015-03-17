@@ -10,7 +10,7 @@ To make this sample work you need to follow these steps.
 * Window content will change from <b>V1</b> and show <b>V2</b> instead
 
 This is a rudimentary demonstration how it can be done to dynamically load new assembly versions at run time.
-There are still some issues that need to be resolved in futre.
+There are still some issues that need to be resolved in future.
 
 ## TODOs
 * Unload old assembly versions from application
