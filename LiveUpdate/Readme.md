@@ -8,7 +8,7 @@ pieces in a first version, in the second version it counts and differs between s
 Now an update of the software is done while the coneyor runs and the software counts and no downtime is needed.
 
 ####Inside overview
-In our demo environment we have build a fischertechnik model with one photo sensor that signals off
+In our demo environment we have build a [fischertechnik model](http://www.fischertechnik.de/en/Home/products/industry.aspx) with one photo sensor that signals off
  when a piece interrupts the sensor and on if no piece is between the sensor. A service is connected to 
 the hardware and provides changes of the signal. This is the FischertechnikService. 
 
