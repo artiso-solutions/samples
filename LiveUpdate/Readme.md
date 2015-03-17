@@ -1,6 +1,6 @@
 ###LiveUpdate Example
 This sample is to get a vision for live update of a production environment,
-to get a vision how devOps can be used in production secnario,
+to get a vision how devOps can be used in production scenario,
 to get feedback to the idea.
 
 In our production scenario we have a conveyor that transport pieces of different size and count the
@@ -22,7 +22,7 @@ Additional a DispatcherService is used to connect the client with the correct ve
 ####How to run the sample
 1. Build Solution
 2. Start ServiceHost (bin\ServiceHost\ConsoleHost.exe)
-    (if the application is started with an argument a test service is used, otherwise a real fischer technik service.)
+    (if the application is started with an argument a test service is used, otherwise a real fischertechnik service.)
 	Service Version 1.0.0.0 is started
 3. Start Client (bin\Client\Shell.exe)
 	Count is displayed
