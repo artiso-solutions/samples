@@ -1,3 +1,22 @@
+###LiveUpdate Example
+This sample is to get a vision for live update of a production environment. 
+Our production scenario we have a conveyor that transport pieces of different size and count the
+pieces in a first version, in the second version it counts and differs between small and big pieces.
+Now an update of the software is done while the coneyor runs and the software counts and no downtime is needed.
+
+####Inside overview
+In our demo environment we have build a fischertechnik model with one photo sensor that signals off
+ when a piece interrupts the sensor and on if no piece is between the sensor. A service is connected to 
+the hardware and provides changes of the signal. This is the FischertechnikService. 
+
+A second service is connected to this FischertechnikService and counts the pieces. This is the CounterService.
+
+Than a client applications displays the count. This is the ItemCounterClient.
+
+Additional a DispatcherService is used to connect the client with the correct version of the service.
+
+
+####How to run the sample
 1. Build Solution
 2. Start ServiceHost (bin\ServiceHost\ConsoleHost.exe)
     (if the application is started with an argument a test service is used, otherwise a real fischer technik service.)
