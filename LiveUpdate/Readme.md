@@ -1,6 +1,9 @@
 ###LiveUpdate Example
-This sample is to get a vision for live update of a production environment. 
-Our production scenario we have a conveyor that transport pieces of different size and count the
+This sample is to get a vision for live update of a production environment,
+to get a vision how devOps can be used in production secnario,
+to get feedback to the idea.
+
+In our production scenario we have a conveyor that transport pieces of different size and count the
 pieces in a first version, in the second version it counts and differs between small and big pieces.
 Now an update of the software is done while the coneyor runs and the software counts and no downtime is needed.
 
@@ -32,3 +35,7 @@ Additional a DispatcherService is used to connect the client with the correct ve
 	Count Big is displayed
 	Count Small is displayed 
 
+####ToDos
+* Fallback to previous version if errors occurs
+
+* Activation of new features on demand 
