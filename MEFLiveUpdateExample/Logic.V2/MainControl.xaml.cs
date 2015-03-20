@@ -3,7 +3,9 @@ using Contracts;
 
 namespace Logic
 {
-    /// <summary>
+   using System.Windows;
+
+   /// <summary>
     /// Interaction logic for MainControl.xaml
     /// </summary>
     [Export(typeof(IMainControl))]

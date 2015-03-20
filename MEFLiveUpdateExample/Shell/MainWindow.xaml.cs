@@ -7,7 +7,12 @@ using Contracts;
 
 namespace Shell
 {
-    /// <summary>
+   using System.Collections.ObjectModel;
+   using System.Reflection;
+   using System.Windows;
+   using System.Windows.Threading;
+
+   /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     [Export]
@@ -15,9 +20,24 @@ namespace Shell
     {
         private IEnumerable<Lazy<IMainControl, IMetaData>> contentControls;
 
+        private ICollection<Assembly> excludedAssemblies;
+
         public MainWindow()
         {
             InitializeComponent();
+            
+            excludedAssemblies = new Collection<Assembly>();
+            Dispatcher.UnhandledException += DispatcherOnUnhandledException;
+        }
+
+        private void DispatcherOnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
+        {
+           dispatcherUnhandledExceptionEventArgs.Handled = true;
+           this.excludedAssemblies.Add(dispatcherUnhandledExceptionEventArgs.Exception.TargetSite.DeclaringType.Assembly);
+
+           MessageBox.Show("UnhandledException occured. Try to load other version.", "Error!", MessageBoxButton.OK);
+
+           LoadLatestControl(ContentControls);
         }
 
         [ImportMany(typeof(IMainControl), AllowRecomposition = true)]
@@ -36,18 +56,9 @@ namespace Shell
 
         private void LoadLatestControl(IEnumerable<Lazy<IMainControl, IMetaData>> controls)
         {
-            var latestControl = controls.FirstOrDefault(c => c.Metadata.Version == controls.Max(a => a.Metadata.Version));
-            if (latestControl != null)
-            {
-                if (this.Dispatcher.CheckAccess())
-                {
-                    this.Content = latestControl.Value as Control;
-                }
-                else
-                {
-                    this.Dispatcher.Invoke(() => { this.Content = latestControl.Value as Control; });
-                }
-            }
+           var controlsOrderedByVersion = controls.OrderByDescending(c => c.Metadata.Version);
+
+           this.Dispatcher.Invoke(() => { var content = controlsOrderedByVersion.Select(c => c.Value).FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly)); this.Content = content; });
         }
     }
 }
