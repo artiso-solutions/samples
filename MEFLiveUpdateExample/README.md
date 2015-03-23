@@ -8,10 +8,11 @@ To make this sample work you need to follow these steps.
 * A plain WPF will open that shows <b>V1</b>
 * Leave application open and run <b>ExecuteUpdate.bat</b>
 * Window content will change from <b>V1</b> and show <b>V2</b> instead
+* With a click on the <b>Throw Exception</b> button a message box will pop up and the window content changes back to <b>V1</b>
 
 This is a rudimentary demonstration how it can be done to dynamically load new assembly versions at run time.
 There are still some issues that need to be resolved in future.
 
 ## TODOs
 * Unload old assembly versions from application
-* Add possibilty to make a fallback to older versions
+
