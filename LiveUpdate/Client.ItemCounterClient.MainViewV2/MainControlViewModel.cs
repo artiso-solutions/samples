@@ -1,135 +1,138 @@
 ﻿namespace ItemCounterClient.MainView
 {
-   using System;
-   using System.Windows;
+    using System;
+    using System.Windows;
 
-   using CommunicationClient;
+    using CommunicationClient;
 
-   using WpfBaseLibrary;
+    using WpfBaseLibrary;
 
-   public class MainControlViewModel : ViewModelBase
-   {
-      private int count;
+    public class MainControlViewModel : ViewModelBase
+    {
+        private int count;
 
-      private readonly WcfClient wcfClient;
+        private readonly WcfClient wcfClient;
 
-      private string endpoint;
+        private string endpoint;
 
-      private int countSmall;
+        private byte countSmall;
 
-      private int countBig;
+        private byte countBig;
 
-      private string error;
+        private string error;
 
-      public MainControlViewModel()
-      {
-         ConnectToServiceCommand = new RelayCommand(ConnectToService);
-         wcfClient = new WcfClient();
-         wcfClient.OnCountChanged += CountChangedEventHandler;
-         ConnectToService(null);
-      }
+        public MainControlViewModel()
+        {
+            ConnectToServiceCommand = new RelayCommand(ConnectToService);
+            ResetCommand = new ThrowExceptionCommand();
+            wcfClient = new WcfClient();
+            wcfClient.OnCountChanged += CountChangedEventHandler;
+            ConnectToService(null);
+        }
 
-      public RelayCommand ConnectToServiceCommand { get; private set; }
+        public RelayCommand ConnectToServiceCommand { get; private set; }
 
-      public int Count
-      {
-         get
-         {
-            return count;
-         }
-         set
-         {
-            if (count == value)
+        public ThrowExceptionCommand ResetCommand { get; private set; }
+
+        public int Count
+        {
+            get
             {
-               return;
+                return count;
+            }
+            set
+            {
+                if (count == value)
+                {
+                    return;
+                }
+
+                count = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int CountSmall
+        {
+            get
+            {
+                return countSmall;
+            }
+            set
+            {
+                if (countSmall == value)
+                {
+                    return;
+                }
+
+                countSmall = checked((byte)value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int CountBig
+        {
+            get
+            {
+                return countBig;
+            }
+            set
+            {
+                if (countBig == value)
+                {
+                    return;
+                }
+
+                countBig = checked((byte)value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string Error
+        {
+            get
+            {
+                return error;
+            }
+            set
+            {
+                if (error == value)
+                {
+                    return;
+                }
+
+                error = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void ConnectToService(object arg)
+        {
+            try
+            {
+                endpoint = wcfClient.GetEndpointFromDispatcher();
+            }
+            catch (Exception)
+            {
+                Error = "Error: Service not started";
+                return;
             }
 
-            count = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public int CountSmall
-      {
-         get
-         {
-            return countSmall;
-         }
-         set
-         {
-            if (countSmall == value)
+            if (string.IsNullOrEmpty(endpoint))
             {
-               return;
+                Error = "Error: Endpoint to service not found";
+                return;
             }
 
-            countSmall = value;
-            OnPropertyChanged();
-         }
-      }
+            Error = string.Empty;
+            wcfClient.Start(endpoint);
+        }
 
-      public int CountBig
-      {
-         get
-         {
-            return countBig;
-         }
-         set
-         {
-            if (countBig == value)
-            {
-               return;
-            }
-
-            countBig = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public string Error
-      {
-         get
-         {
-            return error;
-         }
-         set
-         {
-            if (error == value)
-            {
-               return;
-            }
-
-            error = value;
-            OnPropertyChanged();
-         }
-      }
-
-      private void ConnectToService(object arg)
-      {
-         try
-         {
-            endpoint = wcfClient.GetEndpointFromDispatcher();
-         }
-         catch (Exception)
-         {
-            Error = "Error: Service not started";
-            return;
-         }
-
-         if (string.IsNullOrEmpty(endpoint))
-         {
-            Error = "Error: Endpoint to service not found";
-            return;
-         }
-
-         Error = string.Empty;
-         wcfClient.Start(endpoint);
-      }
-
-      private void CountChangedEventHandler(object sender, CountChangedEventHandlerArgs args)
-      {
-         Count = args.CurrentCount;
-         CountBig = args.CurrentBig;
-         CountSmall = args.CurrentSmall;
-      }
-   }
+        private void CountChangedEventHandler(object sender, CountChangedEventHandlerArgs args)
+        {
+            Count = args.CurrentCount;
+            CountBig = args.CurrentBig;
+            CountSmall = args.CurrentSmall;
+        }
+    }
 }

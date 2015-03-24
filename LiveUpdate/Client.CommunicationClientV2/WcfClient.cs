@@ -32,7 +32,7 @@
          return wcfDispatcher.GetEndpoint(version);
       }
 
-      public void Start(string dispatcherEndpoint)
+      public async void Start(string dispatcherEndpoint)
       {
          var myBinding = new NetTcpBinding();
 
@@ -42,6 +42,7 @@
          itemCounterClient = myChannelFactory.CreateChannel();
          itemCounterClient.Start();
 
+         await  
          Task.Factory.StartNew(() =>
          {
             while (true)

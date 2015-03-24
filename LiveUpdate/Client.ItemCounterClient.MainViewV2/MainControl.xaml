@@ -19,6 +19,7 @@
       <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Foreground="DarkRed" FontSize="32" Margin="0, 10, 0, 10" Text="{Binding Error}"/>
       <!--<Button x:Name="StartStopButton" FontSize="50" Content="Start" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,130,0,0" VerticalAlignment="Top" Width="222" Height="74" Click="StartStopButton_Click"/>-->
       <Button Grid.Row="1" x:Name="ConnectButton" FontSize="50" Content="Connect" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,23,0,0" VerticalAlignment="Top" Width="222" Height="74" Command="{Binding ConnectToServiceCommand}"/>
+      <Button Grid.Row="1" x:Name="ResetButton" FontSize="50" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,114,0,0" VerticalAlignment="Top" Width="222" Height="74" Command="{Binding ResetCommand}"/>
       <StackPanel Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top">
          <TextBlock  Text="Count:" FontSize="32"></TextBlock>
          <TextBlock Text="{Binding Count}" FontSize="64"></TextBlock>
