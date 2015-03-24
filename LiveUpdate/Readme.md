@@ -31,19 +31,19 @@ Additional a DispatcherService is used to connect the client with the correct ve
 #####Batch Update:
 Leave application open and run bin\Client\ExecuteUpdate.bat
 1. Service Update
-	Service Version 2.0.0.0 is started
+	* Service Version 2.0.0.0 is started
 2. Client Update
-	Count is displayed
-	Count Big is displayed
-	Count Small is displayed 
+	* Count is displayed
+	* Count Big is displayed
+	* Count Small is displayed 
 
 #####Manual Update:
 1. Copy (bin\PendingUpdates\ServiceHost\ServiceV2 to bin\ServiceHost\Service2)
 	Service Version 2.0.0.0 is started
 2. Copy (bin\PendingUpdates\Client\ClientV2 to bin\Client\ClientV2)
-	Count is displayed
-	Count Big is displayed
-	Count Small is displayed 
+	* Count is displayed
+	* Count Big is displayed
+	* Count Small is displayed 
 
 ####ToDos
 * Fallback to previous version if errors occurs
