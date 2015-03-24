@@ -29,10 +29,10 @@ Additional a DispatcherService is used to connect the client with the correct ve
 	Count is displayed
 
 #####Batch Update:
-########Leave application open and run bin\Client\ExecuteUpdate.bat
-1. Service Update
+1. Leave application open and run bin\Client\ExecuteUpdate.bat
+1.1 Service Updated
 	* Service Version 2.0.0.0 is started
-2. Client Update
+1.2 Client Updated
 	* Count is displayed
 	* Count Big is displayed
 	* Count Small is displayed 
