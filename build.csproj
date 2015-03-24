@@ -4,15 +4,12 @@
          xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <OutDir Condition=" '$(OutDir)'=='' ">$(MSBuildThisFileDirectory)bin\</OutDir>
     <Configuration Condition=" '$(Configuration)'=='' ">Debug</Configuration>
     <ToolsHome Condition=" '$(ToolsHome)'=='' ">$(MSBuildThisFileDirectory)\.nuget\</ToolsHome>
   </PropertyGroup>
 
   <ItemGroup>
-    <Solution Include="**\*.sln">
-      <AdditionalProperties>OutDir=$(OutDir);Configuration=$(Configuration)</AdditionalProperties>
-    </Solution>
+    <Solution Include="**\*.sln" />
   </ItemGroup>
   
   <Target Name="RestorePackages">
