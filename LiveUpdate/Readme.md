@@ -31,7 +31,7 @@ Additional a DispatcherService is used to connect the client with the correct ve
 #####Batch Update:
 1. Leave application open and run bin\Client\ExecuteUpdate.bat
 * Service is updated to Version 2.0.0.0
-* Client is updated to Version 2.0.0.0 (Count, Count Big and Count Small is diplayed)
+* Client is updated to Version 2.0.0.0 (Count, Count Big and Count Small is displayed)
 
 #####Manual Update:
 1. Copy (bin\PendingUpdates\ServiceHost\ServiceV2 to bin\ServiceHost\Service2)
