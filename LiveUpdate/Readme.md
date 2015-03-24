@@ -21,16 +21,26 @@ Additional a DispatcherService is used to connect the client with the correct ve
 
 ####How to run the sample
 1. Build Solution
-2. Start ServiceHost (bin\ServiceHost\ConsoleHost.exe)
-    (if the application is started with an argument a test service is used, otherwise a real fischertechnik service.)
+2. Start ServiceHost
+	* to use fischertechnk real service bin\ServiceHost\ConsoleHost.exe
+	* to use test service run bin\ServiceHost\StartWithTestLogic.bat
 	Service Version 1.0.0.0 is started
 3. Start Client (bin\Client\Shell.exe)
 	Count is displayed
 
-#####Update:
-1. Copy (bin\ServiceV2 to bin\ServiceHost\Service2)
+#####Batch Update:
+Leave application open and run bin\Client\ExecuteUpdate.bat
+1. Service Update
 	Service Version 2.0.0.0 is started
-2. Copy (bin\ClientV2 to bin\Client\ClientV2)
+2. Client Update
+	Count is displayed
+	Count Big is displayed
+	Count Small is displayed 
+
+#####Manual Update:
+1. Copy (bin\PendingUpdates\ServiceHost\ServiceV2 to bin\ServiceHost\Service2)
+	Service Version 2.0.0.0 is started
+2. Copy (bin\PendingUpdates\Client\ClientV2 to bin\Client\ClientV2)
 	Count is displayed
 	Count Big is displayed
 	Count Small is displayed 
