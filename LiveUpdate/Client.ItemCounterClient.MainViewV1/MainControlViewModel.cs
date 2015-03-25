@@ -21,6 +21,7 @@
          ConnectToServiceCommand = new RelayCommand(ConnectToService);
          wcfClient = new WcfClient();
          wcfClient.OnCountChanged += CountChangedEventHandler;
+            ConnectToService(null);
       }
 
       public RelayCommand ConnectToServiceCommand { get; private set; }

@@ -19,6 +19,12 @@ namespace Shell
     using ClientContracts;
     using System.Reflection;
     using System.Collections.ObjectModel;
+    using Microsoft.ApplicationInsights;
+    using Microsoft.ApplicationInsights.Extensibility;
+    using Microsoft.ApplicationInsights.DataContracts;
+
+
+
 
 
 
@@ -31,27 +37,28 @@ namespace Shell
         private IEnumerable<Lazy<IMainControl, IMetaData>> contentControls;
 
         private ICollection<Assembly> excludedAssemblies;
+        private TelemetryClient tc = new TelemetryClient();
 
         public MainWindow()
         {
             InitializeComponent();
             excludedAssemblies = new Collection<Assembly>();
             Dispatcher.UnhandledException += DispatcherOnUnhandledException;
+            TelemetryConfiguration.Active.ContextInitializers.Add(new TelementryInitializer());
         }
 
         private void DispatcherOnUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
         {
             dispatcherUnhandledExceptionEventArgs.Handled = true;
+            tc.TrackException(dispatcherUnhandledExceptionEventArgs.Exception);
+            tc.TrackEvent("Fallback");
+        
             this.excludedAssemblies.Add(dispatcherUnhandledExceptionEventArgs.Exception.TargetSite.DeclaringType.Assembly);
 
-            var messageBoxResult = MessageBox.Show(String.Format("Something unexpected happened and we cannot continue!{0}Do you want us to switch back to the previous version?{0}If you select No, we will have to close the application.", Environment.NewLine),
-                "Error",
-                MessageBoxButton.YesNo);
+            string message = "Something unexpected happened and we restored the previous version to savely continue operation! The development team has been notified and will provide a fixed version asap.";
 
-            if (messageBoxResult == MessageBoxResult.No)
-            {
-                this.Close();
-            }
+            ((MainWindowViewModel)this.DataContext).ErrorMessage = message;
+   
             LoadLatestControl(ContentControls);
         }
 
@@ -81,7 +88,13 @@ namespace Shell
                 //else
                 {
                     var controlsOrderedByVersion = controls.OrderByDescending(c => c.Metadata.Version);
-                    this.Dispatcher.Invoke(() => { var content = controlsOrderedByVersion.Select(c => c.Value).FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly)); this.Content = content; });
+                    this.Dispatcher.Invoke(() => {
+                        var content = controlsOrderedByVersion.Select(c => c.Value).FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly));
+                        this.Container.Content = content;
+                        tc.TrackTrace(String.Format("Loaded version {0} {1}", Content.GetType().FullName, Content.GetType().Assembly.FullName));
+                        tc.TrackEvent("VersionChange");
+                    });
+                   
                 }
             }
         }

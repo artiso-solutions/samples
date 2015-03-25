@@ -45,20 +45,18 @@ namespace ServiceHostContainer
 
       public void Start(IFischerTechnikLogic fischerTechnikLogic)
       {
-         logger.Info("Processing start request...");
-         if (this.ServiceHostState != State.Stopped)
+            logger.Info("Starting service host...");
+            if (this.ServiceHostState != State.Stopped)
          {
             var message = string.Format("Cannot start service host when in state {0}.", this.ServiceHostState);
             logger.Warn(message);
             throw new NotSupportedException(message);
          }
-
-         logger.Info("Starting service host...");
          this.ServiceHostState = State.Starting;
 
 
          this.applicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-         logger.Info(string.Format("Application Path {0}", applicationPath));
+         logger.Info(string.Format("Searching for services in {0}", applicationPath));
          FileSystemWatcher fs = new FileSystemWatcher(applicationPath, "*.dll");
          fs.IncludeSubdirectories = true;
          fs.Changed += Changed;
@@ -70,10 +68,10 @@ namespace ServiceHostContainer
          this.InitializeCompositionContainer();
 
          string dispatchName = StartDispatcherService();
-         logger.Debug(string.Format("Service \"{0}\" started.", dispatchName));
+         logger.Info(string.Format("Service \"{0}\" started.", dispatchName));
 
          string fischertechnikName = StartFischerTechnikService(fischerTechnikLogic);
-         logger.Debug(string.Format("Service \"{0}\" started.", fischertechnikName));
+         logger.Info(string.Format("Service \"{0}\" started.", fischertechnikName));
          foreach (var endpoint in fischerTechnikServiceHost.Description.Endpoints)
          {
             logger.Debug(string.Format("    Endpoint: {0} - {1} ({2})", endpoint.Name, endpoint.ListenUri, endpoint.Binding.Name));
@@ -132,15 +130,16 @@ namespace ServiceHostContainer
          var serviceName = hostedServiceCreator.Metadata.ServiceName;
          var version = hostedServiceCreator.Metadata.Version;
          var fullName = string.Format("{0}{1}", serviceName, version);
-         logger.Debug(string.Format("Starting service {0}...", fullName));
 
          if (this.serviceHosts.ContainsKey(fullName))
          {
             return;
          }
 
-         try
-         {
+            logger.Debug(string.Format("Starting service {0}...", fullName));
+
+            try
+            {
             var serviceInstance = hostedServiceCreator.Value;
 
             var host = new ServiceHost(serviceInstance, configuration.BaseAddresses.Select(a => new Uri(a, fullName)).ToArray());
@@ -151,7 +150,6 @@ namespace ServiceHostContainer
             serviceInstance.OnStart();
             logger.Info(string.Format("Service \"{0}\" started.", fullName));
 
-            logger.Debug("  Available service endpoints:");
             foreach (var endpoint in host.Description.Endpoints)
             {
                logger.Debug(string.Format("    Endpoint: {0} - {1} ({2})", endpoint.Name, endpoint.ListenUri, endpoint.Binding.Name));

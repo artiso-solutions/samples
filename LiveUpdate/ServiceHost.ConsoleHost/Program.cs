@@ -28,11 +28,10 @@ namespace ConsoleHost
 
          IFischerTechnikLogic fischerTechnikLogic;
 
-         if (args.Length > 0)
+         if (args.Length == 0)
          {
             logger.Info("Using Fischer Technik Test Logic...");
             fischerTechnikLogic = new FischerTechnikTestLogic();
-
          }
          else
          {
@@ -44,8 +43,6 @@ namespace ConsoleHost
 
          var container = new ServiceHostContainer();
          container.Start(fischerTechnikLogic);
-
-         logger.Info("Starting console host started...");
 
          Console.WriteLine("Press <enter> to exit...");
          Console.ReadLine();

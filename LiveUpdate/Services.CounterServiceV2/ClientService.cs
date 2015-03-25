@@ -14,7 +14,7 @@
 
    using ServiceHostContainer.Contracts;
 
-   [HostedServiceExport(typeof(ClientService), "Service", 100)]
+   [HostedServiceExport(typeof(ClientService), "CounterService", 100)]
    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
    public class ClientService : HostedServiceBase, IService
    {
