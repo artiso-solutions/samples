@@ -1,0 +1,15 @@
+﻿<Window x:Class="SampleFeatureToggles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:SampleFeatureToggles="clr-namespace:SampleFeatureToggles"
+        Title="MainWindow" Height="350" Width="525">
+   <!--<Window.DataContext>
+      SampleFeatureToggles:MainViewModel/>
+   </Window.DataContext>                  -->
+   <Window.Resources>
+
+   </Window.Resources>
+   <Grid>
+      <Button Margin="90" Visibility="{Binding LoadDataFeature}">Load Data</Button>
+   </Grid>
+</Window>
