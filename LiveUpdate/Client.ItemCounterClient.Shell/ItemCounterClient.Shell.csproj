@@ -132,6 +132,9 @@
       <Link>artiso.snk</Link>
     </None>
     <None Include="ApplicationInsights.config" />
+    <None Include="ExecuteUpdate.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
