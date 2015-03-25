@@ -1,4 +1,4 @@
-Simple Example for Feature flag based at the framework Feature Toggle from Jason Roberts
+Simple Example for Feature toggles based at the framework Feature Toggle from Jason Roberts
 
 ####Available Feature Toggles
 * SimpleFeatureToggle
