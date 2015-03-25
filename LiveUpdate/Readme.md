@@ -9,8 +9,7 @@ Now an update of the software is done while the coneyor runs and the software co
 
 ####Inside overview
 In our demo environment we have build a [fischertechnik model](http://www.fischertechnik.de/en/Home/products/industry.aspx) with one photo sensor that signals off
- when a piece interrupts the sensor and on if no piece is between the sensor. A service is connected to 
-the hardware and provides changes of the signal. This is the FischertechnikService. 
+ when a piece interrupts the sensor. A service is connected to the hardware and provides changes of the signal. This is the FischertechnikService. 
 
 A second service is connected to this FischertechnikService and counts the pieces. This is the CounterService.
 
@@ -18,12 +17,15 @@ Than a client applications displays the count. This is the ItemCounterClient.
 
 Additional a DispatcherService is used to connect the client with the correct version of the service.
 
+The solution also contains a new version of the CounterService which is able to decide based of the duration of the sensor interruption if it is a 
+small or a big item. There is also a new version of the ItemCounterClient which shows this additional data. The goal is to include this new logic 
+without stopping and restarting the application.
 
 ####How to run the sample
 1. Build Solution
 2. Start ServiceHost
-	* to use fischertechnk real service bin\ServiceHost\ConsoleHost.exe
-	* to use test service run bin\ServiceHost\StartWithTestLogic.bat
+	* to use test service run bin\ServiceHost\ConsoleHost.exe
+	* to use fischertechnk real service run bin\ServiceHost\StartWithFischertechnikLogic.bat
 	Service Version 1.0.0.0 is started
 3. Start Client (bin\Client\Shell.exe)
 	Count is displayed
@@ -41,7 +43,10 @@ Additional a DispatcherService is used to connect the client with the correct ve
 	* Count Big is displayed
 	* Count Small is displayed 
 
-####ToDos
-* Fallback to previous version if errors occurs
+####Automatic Fallback
+1. Either click the Refresh button or wait untill Count Big or Count Small reaches 256
+2. An exception is thrown and an automatic fallback to Version 1.0.0.0 will be executed on the client
 
+####ToDos
+* Fallback for service
 * Activation of new features on demand 
