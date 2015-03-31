@@ -21,6 +21,8 @@ The solution also contains a new version of the CounterService which is able to 
 small or a big item. There is also a new version of the ItemCounterClient which shows this additional data. The goal is to include this new logic 
 without stopping and restarting the application.
 
+![components diagram](https://github.com/artiso-solutions/samples/blob/master/LiveUpdate/Diagram.png)
+
 ####How to run the sample
 1. Build Solution
 2. Start ServiceHost
