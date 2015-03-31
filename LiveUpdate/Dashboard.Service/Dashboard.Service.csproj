@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DD982A9D-82DA-4789-A135-4CC3CDD56DC4}</ProjectGuid>
+    <ProjectGuid>{425BE008-51CE-480B-87CF-5DD14DA80523}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommunicationClient</RootNamespace>
-    <AssemblyName>CommunicationClient</AssemblyName>
+    <RootNamespace>Dashboard.Service</RootNamespace>
+    <AssemblyName>Dashboard.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -30,12 +30,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\artiso.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,26 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WcfClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\artiso.snk">
-      <Link>artiso.snk</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\DashboardContracts\DashboardContracts.csproj">
+      <Project>{981624c3-400e-41d9-a2b2-52fa54b95ee9}</Project>
+      <Name>DashboardContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DashboardService.Contracts\DashboardService.Contracts.csproj">
       <Project>{3CD4B574-35ED-4837-B6CC-B274C6098D8C}</Project>
       <Name>DashboardService.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Service.ContractsV2\Service.ContractsV2.csproj">
-      <Project>{ec635a6b-2c9d-4b1b-a082-9c59d85c8375}</Project>
-      <Name>Service.ContractsV2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServiceDispatcher.Contracts\ServiceDispatcher.Contracts.csproj">
-      <Project>{46c707e0-1ab5-43ed-97c9-0e0305c27f45}</Project>
-      <Name>ServiceDispatcher.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

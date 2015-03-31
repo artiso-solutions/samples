@@ -67,6 +67,10 @@
       <Project>{a0b032bf-7db5-48b0-a2d1-6a8a03f9edaa}</Project>
       <Name>ClientContracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DashboardService.Contracts\DashboardService.Contracts.csproj">
+      <Project>{3cd4b574-35ed-4837-b6cc-b274c6098d8c}</Project>
+      <Name>DashboardService.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfBaseLibrary\WpfBaseLibrary.csproj">
       <Project>{C87D2DE0-C64E-4F96-8CC8-0713C0B2D0A7}</Project>
       <Name>WpfBaseLibrary</Name>

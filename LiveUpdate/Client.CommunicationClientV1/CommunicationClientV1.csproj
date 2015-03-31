@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CommunicationClient</RootNamespace>
     <AssemblyName>CommunicationClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +56,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DashboardService.Contracts\DashboardService.Contracts.csproj">
+      <Project>{3cd4b574-35ed-4837-b6cc-b274c6098d8c}</Project>
+      <Name>DashboardService.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service.ContractsV1\Service.ContractsV1.csproj">
       <Project>{b9940fd7-adca-4bb4-8932-8239d064a8d7}</Project>
       <Name>Service.ContractsV1</Name>

@@ -26,6 +26,7 @@
             ConnectToServiceCommand = new RelayCommand(ConnectToService);
             ResetCommand = new ThrowExceptionCommand();
             wcfClient = new WcfClient();
+            wcfClient.DashboardUpdatedVersion("ClientA", "v2");
             wcfClient.OnCountChanged += CountChangedEventHandler;
             ConnectToService(null);
         }

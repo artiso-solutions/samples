@@ -1,4 +1,6 @@
-﻿namespace CommunicationClient
+﻿using DashboardContracts;
+
+namespace CommunicationClient
 {
    using System;
    using System.Reflection;
@@ -16,7 +18,18 @@
 
       public event CountChangedEventHandler OnCountChanged;
 
-      public string GetEndpointFromDispatcher()
+       public void DashboardUpdatedVersion(string component, string version)
+       {
+           var myBinding = new NetTcpBinding();
+           EndpointAddress myEndpoint = new EndpointAddress("net.tcp://localhost:8001/services");
+
+           ChannelFactory<IDashboardContract> myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding,
+               myEndpoint);
+           IDashboardContract wcfDashboard = myChannelFactory.CreateChannel();
+           wcfDashboard.NotifyUpdatedVersion(component, version);
+       }
+
+       public string GetEndpointFromDispatcher()
       {
          return GetEndpointFromDispatcher(Assembly.GetExecutingAssembly().GetName().Version.ToString());
       }

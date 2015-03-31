@@ -1,4 +1,6 @@
-﻿namespace ItemCounterClient.MainView
+﻿using ClientContracts;
+
+namespace ItemCounterClient.MainView
 {
    using System;
    using System.Windows;
@@ -20,6 +22,7 @@
       {
          ConnectToServiceCommand = new RelayCommand(ConnectToService);
          wcfClient = new WcfClient();
+            wcfClient.DashboardUpdatedVersion("ClientA", "v1");
          wcfClient.OnCountChanged += CountChangedEventHandler;
             ConnectToService(null);
       }

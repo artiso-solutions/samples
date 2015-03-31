@@ -66,6 +66,10 @@
       <Project>{a0b032bf-7db5-48b0-a2d1-6a8a03f9edaa}</Project>
       <Name>ClientContracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DashboardService.Contracts\DashboardService.Contracts.csproj">
+      <Project>{3cd4b574-35ed-4837-b6cc-b274c6098d8c}</Project>
+      <Name>DashboardService.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service.ContractsV1\Service.ContractsV1.csproj">
       <Project>{b9940fd7-adca-4bb4-8932-8239d064a8d7}</Project>
       <Name>Service.ContractsV1</Name>
