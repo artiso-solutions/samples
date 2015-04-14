@@ -1,7 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Dashboard.Shell.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServiceUpdateSource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">..\PendingUpdates\ServiceHost</Value>
+    </Setting>
+    <Setting Name="ServiceUpdateTarget" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">..\ServiceHost</Value>
+    </Setting>
+    <Setting Name="ClientUpdateSource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">..\PendingUpdates\Client</Value>
+    </Setting>
+    <Setting Name="ClientAUpdateTarget" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">..\Client</Value>
+    </Setting>
+    <Setting Name="ClientBUpdateTarget" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
 </SettingsFile>

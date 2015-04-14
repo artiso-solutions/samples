@@ -22,5 +22,50 @@ namespace Dashboard.Shell.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\PendingUpdates\\ServiceHost")]
+        public string ServiceUpdateSource {
+            get {
+                return ((string)(this["ServiceUpdateSource"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\ServiceHost")]
+        public string ServiceUpdateTarget {
+            get {
+                return ((string)(this["ServiceUpdateTarget"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\PendingUpdates\\Client")]
+        public string ClientUpdateSource {
+            get {
+                return ((string)(this["ClientUpdateSource"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\Client")]
+        public string ClientAUpdateTarget {
+            get {
+                return ((string)(this["ClientAUpdateTarget"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ClientBUpdateTarget {
+            get {
+                return ((string)(this["ClientBUpdateTarget"]));
+            }
+        }
     }
 }

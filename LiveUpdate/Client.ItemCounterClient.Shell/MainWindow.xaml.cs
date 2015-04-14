@@ -1,33 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Threading;
+using ClientContracts;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Shell
 {
-    using System.ComponentModel.Composition;
-
-    using ClientContracts;
-    using System.Reflection;
-    using System.Collections.ObjectModel;
-    using Microsoft.ApplicationInsights;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.DataContracts;
-
-
-
-
-
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -47,7 +31,7 @@ namespace Shell
             TelemetryConfiguration.Active.ContextInitializers.Add(new TelementryInitializer());
         }
 
-        private void DispatcherOnUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
+        private void DispatcherOnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
         {
             dispatcherUnhandledExceptionEventArgs.Handled = true;
             tc.TrackException(dispatcherUnhandledExceptionEventArgs.Exception);
@@ -58,7 +42,8 @@ namespace Shell
             string message = "Something unexpected happened and we restored the previous version to savely continue operation! The development team has been notified and will provide a fixed version asap.";
 
             ((MainWindowViewModel)this.DataContext).ErrorMessage = message;
-   
+            var wcfClient = new WcfClient();
+            wcfClient.NotifyFallback(GetClientName(), dispatcherUnhandledExceptionEventArgs.Exception);
             LoadLatestControl(ContentControls);
         }
 
@@ -88,14 +73,35 @@ namespace Shell
                 //else
                 {
                     var controlsOrderedByVersion = controls.OrderByDescending(c => c.Metadata.Version);
-                    this.Dispatcher.Invoke(() => {
-                        var content = controlsOrderedByVersion.Select(c => c.Value).FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly));
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        var content =
+                            controlsOrderedByVersion.Select(c => c.Value)
+                                .FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly));
                         this.Container.Content = content;
-                        tc.TrackTrace(String.Format("Loaded version {0} {1}", Content.GetType().FullName, Content.GetType().Assembly.FullName));
+                        tc.TrackTrace(String.Format("Loaded version {0} {1}", Content.GetType().FullName,
+                            Content.GetType().Assembly.FullName));
                         tc.TrackEvent("VersionChange");
+                        var wcfClient = new WcfClient();
+                        string version = "v" + controlsOrderedByVersion.FirstOrDefault(c => !this.excludedAssemblies.Contains(c.Value.GetType().Assembly)).Metadata.Version.ToString();
+
+                        string clientName = GetClientName();
+                        wcfClient.DashboardUpdatedVersion(clientName, version);
                     });
                    
                 }
+            }
+        }
+
+        private string GetClientName()
+        {
+            if (Assembly.GetExecutingAssembly().Location.ToLower().Contains("clientb"))
+            {
+                return "ClientB";
+            }
+            else
+            {
+                return "ClientA";
             }
         }
     }

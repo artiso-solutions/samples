@@ -1,4 +1,7 @@
-﻿using ClientContracts;
+﻿using System.IO;
+using System.Reflection;
+using System.Security.Policy;
+using ClientContracts;
 
 namespace ItemCounterClient.MainView
 {
@@ -18,16 +21,16 @@ namespace ItemCounterClient.MainView
       private string endpoint;
 
       private string error;
-      public MainControlViewModel()
-      {
-         ConnectToServiceCommand = new RelayCommand(ConnectToService);
-         wcfClient = new WcfClient();
-            wcfClient.DashboardUpdatedVersion("ClientA", "v1");
-         wcfClient.OnCountChanged += CountChangedEventHandler;
-            ConnectToService(null);
-      }
 
-      public RelayCommand ConnectToServiceCommand { get; private set; }
+       public MainControlViewModel()
+       {
+           ConnectToServiceCommand = new RelayCommand(ConnectToService);
+           wcfClient = new WcfClient();
+           wcfClient.OnCountChanged += CountChangedEventHandler;
+           ConnectToService(null);
+       }
+
+       public RelayCommand ConnectToServiceCommand { get; private set; }
 
       public int Count
       {

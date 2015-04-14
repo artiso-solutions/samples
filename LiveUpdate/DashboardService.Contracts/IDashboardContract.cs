@@ -10,6 +10,6 @@ namespace DashboardContracts
         void NotifyUpdatedVersion(string component, string currentVersion);
 
         [OperationContract]
-        void NotifyFallback(string component, string currentVersion, Exception exception);
+        void NotifyFallback(string component, string exception);
     }
 }

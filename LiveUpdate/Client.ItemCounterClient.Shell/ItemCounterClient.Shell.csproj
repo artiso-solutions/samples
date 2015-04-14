@@ -82,6 +82,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -104,6 +105,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TelementryInitializer.cs" />
+    <Compile Include="WcfClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
@@ -166,6 +168,10 @@
     <ProjectReference Include="..\Client.Contracts\ClientContracts.csproj">
       <Project>{a0b032bf-7db5-48b0-a2d1-6a8a03f9edaa}</Project>
       <Name>ClientContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DashboardService.Contracts\DashboardService.Contracts.csproj">
+      <Project>{3CD4B574-35ED-4837-B6CC-B274C6098D8C}</Project>
+      <Name>DashboardService.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\WpfBaseLibrary\WpfBaseLibrary.csproj">
       <Project>{c87d2de0-c64e-4f96-8cc8-0713c0b2d0a7}</Project>

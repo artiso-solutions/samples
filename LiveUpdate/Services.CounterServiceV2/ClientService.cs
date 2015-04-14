@@ -1,4 +1,6 @@
-﻿namespace Services.Service
+﻿using DashboardContracts;
+
+namespace Services.Service
 {
    using System;
    using System.Reflection;
@@ -30,15 +32,30 @@
 
       private int timeThreshold = 120;
 
-      #endregion
+        #endregion
 
-      #region Constructors and Destructors
+        #region Constructors and Destructors
+        public ClientService()
+        {
+            DashboardUpdatedVersion("Service", "v2");
+        }
 
-      #endregion
+        #endregion
 
-      #region Public Methods and Operators
+        #region Public Methods and Operators
+        public void DashboardUpdatedVersion(string component, string version)
+        {
+            var myBinding = new NetTcpBinding();
+            EndpointAddress myEndpoint = new EndpointAddress("net.tcp://localhost:8001/services");
 
-      public Counts GetAllCounts()
+            ChannelFactory<IDashboardContract> myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding,
+                myEndpoint);
+            IDashboardContract wcfDashboard = myChannelFactory.CreateChannel();
+            wcfDashboard.NotifyUpdatedVersion(component, version);
+            logger.Info(String.Format("Send version {0} to dashboard service", version));
+        }
+
+        public Counts GetAllCounts()
       {
          return counts;
       }

@@ -1,4 +1,7 @@
-﻿namespace Services.Service
+﻿using System;
+using DashboardContracts;
+
+namespace Services.Service
 {
    using System.ServiceModel;
 
@@ -20,7 +23,23 @@
 
       private int itemsCount;
 
-      public void ConnectToFischerTechnikService()
+       public ClientService()
+       {
+            DashboardUpdatedVersion("Service", "v1");
+       }
+        public void DashboardUpdatedVersion(string component, string version)
+        {
+            var myBinding = new NetTcpBinding();
+            EndpointAddress myEndpoint = new EndpointAddress("net.tcp://localhost:8001/services");
+
+            ChannelFactory<IDashboardContract> myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding,
+                myEndpoint);
+            IDashboardContract wcfDashboard = myChannelFactory.CreateChannel();
+            wcfDashboard.NotifyUpdatedVersion(component, version);
+            logger.Info(String.Format("Send version {0} to dashboard service", version));
+        }
+
+        public void ConnectToFischerTechnikService()
       {
          fischerTechnikWcfClient = new FischerTechnikClient(OnSignalChanged);
          fischerTechnikWcfClient.ConnectToService();

@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.ServiceModel.Channels;
 using Dashboard.Shell.Annotations;
 using DashboardContracts;
 using WpfBaseLibrary;
@@ -15,12 +17,28 @@ namespace Dashboard.Shell
         private string _currentClientBVersion;
         private string _updateClientBVersion;
         private DashboardServiceHost _serviceHost;
+        private ObservableCollection<DashboardMessage> _messages;
 
+        public UpdateCommand UpdateCommand { get; set; }
 
         public MainWindowViewModel()
         {
             _serviceHost = new DashboardServiceHost(this);
+            UpdateCommand = new UpdateCommand();
+            Messages = new ObservableCollection<DashboardMessage>();
         }
+
+        public ObservableCollection<DashboardMessage> Messages
+        {
+            get { return _messages; }
+            set
+            {
+                if (value == _messages) return;
+                _messages = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string CurrentServiceVersion
         {
             get { return _currentServiceVersion; }
