@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace Shell
 {
@@ -50,6 +51,7 @@ namespace Shell
       private void FilesSystemChanged(object sender, FileSystemEventArgs eventArgs)
       {
          // when something was chagned in directory, refresh directory catalog
+         Thread.Sleep(500);
          if (eventArgs.ChangeType == WatcherChangeTypes.Changed && Directory.Exists(eventArgs.FullPath))
          {
             var existingDirectoryCatalog =

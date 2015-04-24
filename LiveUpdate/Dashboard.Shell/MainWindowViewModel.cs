@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.ServiceModel.Channels;
@@ -26,6 +27,8 @@ namespace Dashboard.Shell
             _serviceHost = new DashboardServiceHost(this);
             UpdateCommand = new UpdateCommand();
             Messages = new ObservableCollection<DashboardMessage>();
+            //Messages.Add(new DashboardMessage() {Message = "Info", Timestamp=DateTime.Now, Type = MessageTypes.Info});
+            //Messages.Add(new DashboardMessage() { Message = "Error", Timestamp = DateTime.Now, Type = MessageTypes.Error });
         }
 
         public ObservableCollection<DashboardMessage> Messages

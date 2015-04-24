@@ -31,6 +31,10 @@ namespace Dashboard.Shell
                     source = new DirectoryInfo(Settings.Default.ClientUpdateSource);
                     source.CopyTo(Path.Combine(Settings.Default.ClientAUpdateTarget, "V2"));
                     break;
+                case "ClientB":
+                    source = new DirectoryInfo(Settings.Default.ClientUpdateSource);
+                    source.CopyTo(Path.Combine(Settings.Default.ClientBUpdateTarget, "V2"));
+                    break;
             }
         }
     }

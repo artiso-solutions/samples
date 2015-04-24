@@ -38,16 +38,18 @@
         <Button Grid.Row ="3" Grid.Column="2" Command="{Binding UpdateCommand}" CommandParameter="ClientB" Content="Update" Margin="10,5" FontSize="21.333"></Button>
 
         <ListView Grid.Row="4" Grid.ColumnSpan="3" ItemsSource="{Binding Messages}">
-            <ListView.Style>
-                <Style>
-                    <Setter Property="TextBlock.Foreground" Value="Green"/>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="Info">
+                            <Setter Property="TextBlock.Foreground" Value="Green"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Type}" Value="Error">
                             <Setter Property="TextBlock.Foreground" Value="DarkRed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListView.Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Header="Date" Width="250">

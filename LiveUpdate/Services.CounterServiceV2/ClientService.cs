@@ -46,7 +46,8 @@ namespace Services.Service
         public void DashboardUpdatedVersion(string component, string version)
         {
             var myBinding = new NetTcpBinding();
-            EndpointAddress myEndpoint = new EndpointAddress("net.tcp://localhost:8001/services");
+            var identity = EndpointIdentity.CreateSpnIdentity("dummy");
+            EndpointAddress myEndpoint = new EndpointAddress(new Uri("net.tcp://car0005:8001/services"), identity);
 
             ChannelFactory<IDashboardContract> myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding,
                 myEndpoint);
