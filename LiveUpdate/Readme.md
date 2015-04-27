@@ -30,7 +30,7 @@ without stopping and restarting the application.
 	* Service Version 1.0.0.0 is started
 	* Count is displayed
 3. Start Dashboard is optional
-	* use bin\Dashboard\Dashboard.Shell.exe
+	* use bin\StartDashboard.bat
 
 #####Batch Update:
 1. Leave application open and run bin\Client\ExecuteUpdate.bat

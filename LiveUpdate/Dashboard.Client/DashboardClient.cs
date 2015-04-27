@@ -55,7 +55,6 @@
                   failedToConnectToService = false;
                }
             });
-
       }
 
 
