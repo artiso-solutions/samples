@@ -29,9 +29,15 @@ namespace Shell
 
          if (watchDirectory)
          {
-            this.fileSystemWatcher = new FileSystemWatcher(applicationPath) { EnableRaisingEvents = true };
-            this.fileSystemWatcher.Changed += this.FilesSystemChanged;
+            InitializeFileSystemWatcher(applicationPath);
          }
+      }
+
+      private void InitializeFileSystemWatcher(string applicationPath)
+      {
+         this.fileSystemWatcher = new FileSystemWatcher(applicationPath) { EnableRaisingEvents = true };
+         this.fileSystemWatcher.Changed += this.FilesSystemChanged;
+         this.fileSystemWatcher.Created += this.FilesSystemChanged;
       }
 
       public CompositionContainer Container { get; private set; }
@@ -52,7 +58,7 @@ namespace Shell
       {
          // when something was chagned in directory, refresh directory catalog
          Thread.Sleep(500);
-         if (eventArgs.ChangeType == WatcherChangeTypes.Changed && Directory.Exists(eventArgs.FullPath))
+         if ((eventArgs.ChangeType == WatcherChangeTypes.Changed || eventArgs.ChangeType == WatcherChangeTypes.Created) && Directory.Exists(eventArgs.FullPath))
          {
             var existingDirectoryCatalog =
                 this.aggregateCatalog.Catalogs.OfType<DirectoryCatalog>()

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using System.Runtime.Remoting.Channels;
-using System.Windows.Input;
-using Dashboard.Shell.Properties;
-
-namespace Dashboard.Shell
+﻿namespace Dashboard.Shell
 {
-   using System.Windows.Navigation;
+   using System;
+   using System.IO;
+   using System.Windows.Input;
+
+   using Dashboard.Shell.Properties;
 
    public class UpdateCommand : ICommand
    {
