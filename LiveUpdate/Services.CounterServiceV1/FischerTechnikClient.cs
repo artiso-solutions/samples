@@ -7,18 +7,13 @@
 
    using log4net;
 
-   using Services.Service;
-
    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
    public class FischerTechnikClient : ISignalChangeCallback, IDisposable
    {
       private readonly Action<bool> signalChangedAction;
-      private ILog logger = LogManager.GetLogger(typeof(FischerTechnikClient));
+      private readonly ILog logger = LogManager.GetLogger(typeof(FischerTechnikClient));
 
       private IFischerTechnikService fischerTechnikService;
-
-      private Action<bool> SignalChangedAction;
-
       public FischerTechnikClient(Action<bool> signalChangedAction)
       {
          this.signalChangedAction = signalChangedAction;

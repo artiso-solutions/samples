@@ -8,6 +8,8 @@ namespace Services.Service
 
    using CommunicationClient;
 
+   using Dashboard.Client;
+
    using FischerTechnikWcfClient;
 
    using log4net;
@@ -32,31 +34,27 @@ namespace Services.Service
 
       private int timeThreshold = 120;
 
-        #endregion
+      private DashboardClient dashboardClient;
 
-        #region Constructors and Destructors
-        public ClientService()
-        {
-            DashboardUpdatedVersion("Service", "v2");
-        }
+      #endregion
 
-        #endregion
+      #region Constructors and Destructors
+      public ClientService()
+      {
+         dashboardClient = new DashboardClient(logger);
+         DashboardUpdatedVersion("Service", "v2");
+      }
 
-        #region Public Methods and Operators
-        public void DashboardUpdatedVersion(string component, string version)
-        {
-            var myBinding = new NetTcpBinding();
-            var identity = EndpointIdentity.CreateSpnIdentity("dummy");
-            EndpointAddress myEndpoint = new EndpointAddress(new Uri("net.tcp://car0005:8001/services"), identity);
+      #endregion
 
-            ChannelFactory<IDashboardContract> myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding,
-                myEndpoint);
-            IDashboardContract wcfDashboard = myChannelFactory.CreateChannel();
-            wcfDashboard.NotifyUpdatedVersion(component, version);
-            logger.Info(String.Format("Send version {0} to dashboard service", version));
-        }
+      #region Public Methods and Operators
+      public void DashboardUpdatedVersion(string component, string version)
+      {
+         dashboardClient.DashboardUpdatedVersion(component, version);
+         logger.Info(String.Format("Send version {0} to dashboard service", version));
+      }
 
-        public Counts GetAllCounts()
+      public Counts GetAllCounts()
       {
          return counts;
       }

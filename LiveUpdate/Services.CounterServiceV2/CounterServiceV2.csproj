@@ -60,6 +60,10 @@
       <Project>{7f913582-1de4-4ab6-8418-622e21bc6137}</Project>
       <Name>CommunicationClientV1</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dashboard.Client\Dashboard.Client.csproj">
+      <Project>{8D2AECEA-DACA-4444-B19F-FC36E53ED399}</Project>
+      <Name>Dashboard.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DashboardService.Contracts\DashboardService.Contracts.csproj">
       <Project>{3CD4B574-35ED-4837-B6CC-B274C6098D8C}</Project>
       <Name>DashboardService.Contracts</Name>

@@ -5,6 +5,8 @@ namespace Services.Service
 {
    using System.ServiceModel;
 
+   using Dashboard.Client;
+
    using FischerTechnikWcfClient;
 
    using log4net;
@@ -23,24 +25,21 @@ namespace Services.Service
 
       private int itemsCount;
 
-       public ClientService()
-       {
-            DashboardUpdatedVersion("Service", "v1");
-       }
-        public void DashboardUpdatedVersion(string component, string version)
-        {
-            var myBinding = new NetTcpBinding();
-            var identity = EndpointIdentity.CreateSpnIdentity("dummy");
-            EndpointAddress myEndpoint = new EndpointAddress(new Uri("net.tcp://car0005:8001/services"), identity);
+      private readonly DashboardClient dashboardClient;
 
-            ChannelFactory<IDashboardContract> myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding,
-                myEndpoint);
-            IDashboardContract wcfDashboard = myChannelFactory.CreateChannel();
-            wcfDashboard.NotifyUpdatedVersion(component, version);
-            logger.Info(String.Format("Send version {0} to dashboard service", version));
-        }
+      public ClientService()
+      {
+         dashboardClient = new DashboardClient(logger);
+         DashboardUpdatedVersion("Service", "v1");
+      }
+      public void DashboardUpdatedVersion(string component, string version)
+      {
+         
+         dashboardClient.DashboardUpdatedVersion(component, version);
+         logger.Info(String.Format("Send version {0} to dashboard service", version));
+      }
 
-        public void ConnectToFischerTechnikService()
+      public void ConnectToFischerTechnikService()
       {
          fischerTechnikWcfClient = new FischerTechnikClient(OnSignalChanged);
          fischerTechnikWcfClient.ConnectToService();

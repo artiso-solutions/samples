@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22609.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F98110DE-F984-4CA2-9679-870D13A55BB5}"
 	ProjectSection(SolutionItems) = preProject
@@ -69,6 +69,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardService.Contracts", "DashboardService.Contracts\DashboardService.Contracts.csproj", "{3CD4B574-35ED-4837-B6CC-B274C6098D8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardContracts", "DashboardContracts\DashboardContracts.csproj", "{981624C3-400E-41D9-A2B2-52FA54B95EE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Client", "Dashboard.Client\Dashboard.Client.csproj", "{8D2AECEA-DACA-4444-B19F-FC36E53ED399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -396,6 +398,18 @@ Global
 		{981624C3-400E-41D9-A2B2-52FA54B95EE9}.ReleaseSetup|Any CPU.Build.0 = Release|Any CPU
 		{981624C3-400E-41D9-A2B2-52FA54B95EE9}.ReleaseSetup|x86.ActiveCfg = Release|Any CPU
 		{981624C3-400E-41D9-A2B2-52FA54B95EE9}.ReleaseSetup|x86.Build.0 = Release|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.DebugSetup|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.DebugSetup|Any CPU.Build.0 = Debug|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.DebugSetup|x86.ActiveCfg = Debug|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.ReleaseSetup|Any CPU.ActiveCfg = Release|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.ReleaseSetup|Any CPU.Build.0 = Release|Any CPU
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399}.ReleaseSetup|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -424,5 +438,6 @@ Global
 		{425BE008-51CE-480B-87CF-5DD14DA80523} = {D717E206-279D-4453-9527-6C0B7F10EFD7}
 		{3CD4B574-35ED-4837-B6CC-B274C6098D8C} = {00C7455E-7724-482A-AF20-7018D24B3955}
 		{981624C3-400E-41D9-A2B2-52FA54B95EE9} = {D717E206-279D-4453-9527-6C0B7F10EFD7}
+		{8D2AECEA-DACA-4444-B19F-FC36E53ED399} = {D717E206-279D-4453-9527-6C0B7F10EFD7}
 	EndGlobalSection
 EndGlobal

@@ -25,12 +25,12 @@ without stopping and restarting the application.
 
 ####How to run the sample
 1. Build Solution
-2. Start ServiceHost
-	* to use test service run bin\ServiceHost\ConsoleHost.exe
-	* to use fischertechnk real service run bin\ServiceHost\StartWithFischertechnikLogic.bat
-	Service Version 1.0.0.0 is started
-3. Start Client (bin\Client\Shell.exe)
-	Count is displayed
+2. Start ServiceHost and Client with test logic
+	* use bin\StartClientAndService.bat
+	* Service Version 1.0.0.0 is started
+	* Count is displayed
+3. Start Dashboard is optional
+	* use bin\Dashboard\Dashboard.Shell.exe
 
 #####Batch Update:
 1. Leave application open and run bin\Client\ExecuteUpdate.bat
