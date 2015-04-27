@@ -31,9 +31,9 @@ without stopping and restarting the application.
 	* Count is displayed
 3. Start Dashboard is optional
 	* use bin\StartDashboard.bat
-	* to the dashboard at a second PC us bin\StartClientAndServiceWithDashboardRunningOnSecondPC as sample
 
 You can also start client, service and dashboard with one batch bin\StartClientAndServiceAndDashboard.bat
+Is the dashboard at a second PC running use bin\StartClientAndServiceWithDashboardRunningOnSecondPC as sample
 
 #####Batch Update:
 1. Leave application open and run bin\StartServiceAndClientUpdate.bat
@@ -49,7 +49,7 @@ You can also start client, service and dashboard with one batch bin\StartClientA
 	* Count Small is displayed 
 
 ####Automatic Fallback
-1. Either click the Refresh button or wait untill Count Big or Count Small reaches 256
+1. Either click the Reset button or wait untill Count Big or Count Small reaches 256
 2. An exception is thrown and an automatic fallback to Version 1.0.0.0 will be executed on the client
 
 ####ToDos

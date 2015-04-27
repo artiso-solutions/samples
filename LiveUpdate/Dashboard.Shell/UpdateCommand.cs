@@ -7,35 +7,37 @@ using Dashboard.Shell.Properties;
 
 namespace Dashboard.Shell
 {
-    public class UpdateCommand : ICommand
-    {
-        public event EventHandler CanExecuteChanged;
+   using System.Windows.Navigation;
 
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
+   public class UpdateCommand : ICommand
+   {
+      public event EventHandler CanExecuteChanged;
 
-        public void Execute(object parameter)
-        {
-            DirectoryInfo source;
-            string component = parameter as string;
+      public bool CanExecute(object parameter)
+      {
+         return true;
+      }
 
-            switch (component)
-            {
-                case "Service":
-                    source = new DirectoryInfo(Settings.Default.ServiceUpdateSource);
-                    source.CopyTo(Path.Combine(Settings.Default.ServiceUpdateTarget, "V2"));
-                    break;
-                case "ClientA":
-                    source = new DirectoryInfo(Settings.Default.ClientUpdateSource);
-                    source.CopyTo(Path.Combine(Settings.Default.ClientAUpdateTarget, "V2"));
-                    break;
-                case "ClientB":
-                    source = new DirectoryInfo(Settings.Default.ClientUpdateSource);
-                    source.CopyTo(Path.Combine(Settings.Default.ClientBUpdateTarget, "V2"));
-                    break;
-            }
-        }
-    }
+      public void Execute(object parameter)
+      {
+         DirectoryInfo source;
+         var component = parameter as string;
+
+         switch (component)
+         {
+            case "Service":
+               source = new DirectoryInfo(Settings.Default.ServiceUpdateSource);
+               source.CopyTo(Path.Combine(Settings.Default.ServiceUpdateTarget, "V2"));
+               break;
+            case "ClientA":
+               source = new DirectoryInfo(Settings.Default.ClientUpdateSource);
+               source.CopyTo(Path.Combine(Settings.Default.ClientAUpdateTarget, "V2"));
+               break;
+            case "ClientB":
+               source = new DirectoryInfo(Settings.Default.ClientUpdateSource);
+               source.CopyTo(Path.Combine(Settings.Default.ClientBUpdateTarget, "V2"));
+               break;
+         }
+      }
+   }
 }
