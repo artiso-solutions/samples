@@ -9,6 +9,8 @@
 
    using log4net;
 
+   using Service.Contracts;
+
    public class DashboardClient
    {
       private readonly ILog logger;
@@ -19,6 +21,8 @@
       private readonly ConcurrentQueue<Tuple<string, Exception>> notifyFallbackQueue = new ConcurrentQueue<Tuple<string, Exception>>();
 
       private volatile bool failedToConnectToService;
+
+      private string dashboardComputerName = "localhost";
 
       public DashboardClient(ILog logger)
       {
@@ -88,7 +92,7 @@
              }
           });
       }
-
+      
       private void ResizeNotifyFallbackQueueIfNecessary()
       {
          if (notifyFallbackQueue.Count <= QueueLimit)
@@ -168,12 +172,23 @@
             }
          }
       }
-      private static IDashboardContract ConnectToDashboard()
+
+      private static string GetEndpointFromDispatcher()
+      {
+         var myBinding = new NetTcpBinding();
+
+         EndpointAddress myEndpoint = new EndpointAddress("net.tcp://localhost:8000/services/Dispatcher");
+
+         ChannelFactory<IServiceDispatcher> myChannelFactory = new ChannelFactory<IServiceDispatcher>(myBinding, myEndpoint);
+         IServiceDispatcher wcfDispatcher = myChannelFactory.CreateChannel();
+         return wcfDispatcher.GetDashboardEndpoint();
+      }
+      private IDashboardContract ConnectToDashboard()
       {
          var myBinding = new NetTcpBinding();
          var identity = EndpointIdentity.CreateSpnIdentity("dummy");
-         //var myEndpoint = new EndpointAddress(new Uri("net.tcp://car0005:8001/services"), identity);
-         var dashboardEndPoint = new EndpointAddress(new Uri("net.tcp://localhost:8001/services"), identity);
+         var endPoint = GetEndpointFromDispatcher();
+         var dashboardEndPoint = new EndpointAddress(new Uri(endPoint), identity);
 
          var myChannelFactory = new ChannelFactory<IDashboardContract>(myBinding, dashboardEndPoint);
          var wcfDashboard = myChannelFactory.CreateChannel();

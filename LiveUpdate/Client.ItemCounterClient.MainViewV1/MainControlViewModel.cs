@@ -18,7 +18,7 @@ namespace ItemCounterClient.MainView
 
       private readonly WcfClient wcfClient;
 
-      private string endpoint;
+      private string dispatcherEndpoint;
 
       private string error;
 
@@ -72,7 +72,7 @@ namespace ItemCounterClient.MainView
       {
          try
          {
-            endpoint = wcfClient.GetEndpointFromDispatcher();
+            dispatcherEndpoint = wcfClient.GetEndpointFromDispatcher();
          }
          catch (Exception)
          {
@@ -80,13 +80,13 @@ namespace ItemCounterClient.MainView
             return;
          }
 
-         if (string.IsNullOrEmpty(endpoint))
+         if (string.IsNullOrEmpty(dispatcherEndpoint))
          {
             Error = "Error: Endpoint to service not found";
             return;
          }
 
-         wcfClient.Start(endpoint);
+         wcfClient.Start(dispatcherEndpoint);
       }
 
       private void CountChangedEventHandler(object sender, CountChangedEventHandlerArgs args)

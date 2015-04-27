@@ -136,9 +136,6 @@
       <Link>artiso.snk</Link>
     </None>
     <None Include="ApplicationInsights.config" />
-    <None Include="ExecuteUpdate.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

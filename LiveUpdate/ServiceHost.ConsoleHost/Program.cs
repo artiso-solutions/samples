@@ -7,6 +7,9 @@
 namespace ConsoleHost
 {
    using System;
+   using System.Linq;
+
+   using CommandLine;
 
    using FischerTechnikService;
 
@@ -28,21 +31,27 @@ namespace ConsoleHost
 
          IFischerTechnikLogic fischerTechnikLogic;
 
-         if (args.Length == 0)
-         {
-            logger.Info("Using Fischer Technik Test Logic...");
-            fischerTechnikLogic = new FischerTechnikTestLogic();
-         }
-         else
+         var options = new Options();
+         Parser.Default.ParseArguments(args, options);
+
+         if (options.UseFischerTechnikController)
          {
             logger.Info("Using Fischer Technik Logic...");
             fischerTechnikLogic = new FischerTechnikLogic();
          }
+         else
+         {
+            logger.Info("Using Fischer Technik Test Logic...");
+            fischerTechnikLogic = new FischerTechnikTestLogic();
+         }
+
+         var dashboardComputerName = options.DashboardComputerName;
+
 
          fischerTechnikLogic.StartMotor();
 
          var container = new ServiceHostContainer();
-         container.Start(fischerTechnikLogic);
+         container.Start(fischerTechnikLogic, dashboardComputerName);
 
          Console.WriteLine("Press <enter> to exit...");
          Console.ReadLine();

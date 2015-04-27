@@ -8,5 +8,8 @@
 
       [OperationContract]
       string GetEndpoint(string clientVersion);
+
+      [OperationContract]
+      string GetDashboardEndpoint();
    }
 }

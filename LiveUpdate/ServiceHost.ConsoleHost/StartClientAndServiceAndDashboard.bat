@@ -1,4 +1,6 @@
-start "" ".\ServiceHost\ConsoleHost.exe" "--UseFischerTechnikController"
+start "" ".\Dashboard\Dashboard.Shell.exe"
+#sleep for 4 seconds; this works for all windows versions.
+start "" ".\ServiceHost\ConsoleHost.exe"
 #sleep for 4 seconds; this works for all windows versions.
 ping -n <4> 127.0.0.1 > NUL
 start "" ".\Client\Shell.exe"

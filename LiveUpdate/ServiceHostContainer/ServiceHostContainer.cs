@@ -41,9 +41,11 @@ namespace ServiceHostContainer
 
       private ServiceHost fischerTechnikServiceHost;
 
+      private ServiceDispatcher serviceDispatcher;
+
       public State ServiceHostState { get; set; }
 
-      public void Start(IFischerTechnikLogic fischerTechnikLogic)
+      public void Start(IFischerTechnikLogic fischerTechnikLogic, string dashboardComputerName)
       {
             logger.Info("Starting service host...");
             if (this.ServiceHostState != State.Stopped)
@@ -63,14 +65,16 @@ namespace ServiceHostContainer
          fs.Created += Changed;
          fs.EnableRaisingEvents = true;
          configuration = ServiceHostContainerReader.ReadConfiguration();
-
-
-         this.InitializeCompositionContainer();
-
-         string dispatchName = StartDispatcherService();
+         
+         serviceDispatcher = new ServiceDispatcher(serviceHosts, string.Format("net.tcp://{0}:8001/services", dashboardComputerName));
+         var dispatchName = StartDispatcherService(serviceDispatcher);
          logger.Info(string.Format("Service \"{0}\" started.", dispatchName));
 
-         string fischertechnikName = StartFischerTechnikService(fischerTechnikLogic);
+         InitializeCompositionContainer();
+
+      
+
+         var fischertechnikName = StartFischerTechnikService(fischerTechnikLogic);
          logger.Info(string.Format("Service \"{0}\" started.", fischertechnikName));
          foreach (var endpoint in fischerTechnikServiceHost.Description.Endpoints)
          {
@@ -85,19 +89,18 @@ namespace ServiceHostContainer
       {
          var fischerTechnikService = new FischerTechnikService(fischerTechnikLogic);
          fischerTechnikService.StartListening();
-         var fischertechnikName = "Fischertechnik";
-         fischerTechnikServiceHost = new ServiceHost(fischerTechnikService, configuration.BaseAddresses.Select(a => new Uri(a, fischertechnikName)).ToArray());
+         const string FischertechnikName = "Fischertechnik";
+         fischerTechnikServiceHost = new ServiceHost(fischerTechnikService, configuration.BaseAddresses.Select(a => new Uri(a, FischertechnikName)).ToArray());
          fischerTechnikServiceHost.Open();
-         return fischertechnikName;
+         return FischertechnikName;
       }
 
-      private string StartDispatcherService()
+      private string StartDispatcherService(ServiceDispatcher serviceDispatcher)
       {
-         var dispatcherService = new ServiceDispatcher(serviceHosts);
-         var dispatchName = "Dispatcher";
-         dispatcherHost = new ServiceHost(dispatcherService, configuration.BaseAddresses.Select(a => new Uri(a, dispatchName)).ToArray());
+         const string DispatchName = "Dispatcher";
+         dispatcherHost = new ServiceHost(serviceDispatcher, configuration.BaseAddresses.Select(a => new Uri(a, DispatchName)).ToArray());
          dispatcherHost.Open();
-         return dispatchName;
+         return DispatchName;
       }
 
       [ImportMany(typeof(IHostedService), AllowRecomposition = true)]
@@ -144,6 +147,10 @@ namespace ServiceHostContainer
 
             var host = new ServiceHost(serviceInstance, configuration.BaseAddresses.Select(a => new Uri(a, fullName)).ToArray());
             this.serviceHosts[fullName] = host;
+            foreach (var serviceHost in serviceHosts)
+            {
+               serviceDispatcher.AddServiceHost(serviceHost.Key, serviceHost.Value);
+            }
 
             host.Open();
 

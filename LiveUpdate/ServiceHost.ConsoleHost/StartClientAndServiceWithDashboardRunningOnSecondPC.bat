@@ -1,4 +1,4 @@
-start "" ".\ServiceHost\ConsoleHost.exe" "--UseFischerTechnikController"
+start "" ".\ServiceHost\ConsoleHost.exe" --DashboardComputerName=car0005
 #sleep for 4 seconds; this works for all windows versions.
 ping -n <4> 127.0.0.1 > NUL
 start "" ".\Client\Shell.exe"

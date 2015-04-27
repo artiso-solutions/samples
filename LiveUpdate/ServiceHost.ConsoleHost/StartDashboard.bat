@@ -1,0 +1,1 @@
+start "" ".\Dashboard\Dashboard.Shell.exe"

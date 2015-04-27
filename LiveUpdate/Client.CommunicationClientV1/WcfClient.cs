@@ -18,7 +18,7 @@ namespace CommunicationClient
 
       public event CountChangedEventHandler OnCountChanged;
 
-        public string GetEndpointFromDispatcher()
+      public string GetEndpointFromDispatcher()
       {
          return GetEndpointFromDispatcher(Assembly.GetExecutingAssembly().GetName().Version.ToString());
       }
@@ -34,11 +34,11 @@ namespace CommunicationClient
          return wcfDispatcher.GetEndpoint(version);
       }
 
-      public void Start(string dispatcherEndpoint)
+      public void Start(string endPoint)
       {
          var myBinding = new NetTcpBinding();
 
-         EndpointAddress myEndpoint = new EndpointAddress(dispatcherEndpoint);
+         EndpointAddress myEndpoint = new EndpointAddress(endPoint);
 
          var myChannelFactory = new ChannelFactory<IService>(myBinding, myEndpoint);
          itemCounterClient = myChannelFactory.CreateChannel();

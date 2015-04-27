@@ -1,1 +1,0 @@
-.\ConsoleHost.exe UseFischertechnikController

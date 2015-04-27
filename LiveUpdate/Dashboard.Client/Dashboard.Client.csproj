@@ -60,6 +60,10 @@
       <Project>{3CD4B574-35ED-4837-B6CC-B274C6098D8C}</Project>
       <Name>DashboardService.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceDispatcher.Contracts\ServiceDispatcher.Contracts.csproj">
+      <Project>{46C707E0-1AB5-43ED-97C9-0E0305C27F45}</Project>
+      <Name>ServiceDispatcher.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\artiso.snk">

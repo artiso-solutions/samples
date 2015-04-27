@@ -52,7 +52,7 @@ namespace Shell
          const string Message = "Something unexpected happened and we restored the previous version to savely continue operation! The development team has been notified and will provide a fixed version asap.";
 
          ((MainWindowViewModel)this.DataContext).ErrorMessage = Message;
-         
+
          dashboardClient.NotifyFallback(GetClientName(), dispatcherUnhandledExceptionEventArgs.Exception);
          LoadLatestControl(ContentControls);
       }
@@ -73,33 +73,21 @@ namespace Shell
 
       private void LoadLatestControl(IEnumerable<Lazy<IMainControl, IMetaData>> controls)
       {
-         //var latestControl = controls.FirstOrDefault(c => c.Metadata.Version == controls.Max(a => a.Metadata.Version));
-         //if (latestControl != null)
+         var controlsOrderedByVersion = controls.OrderByDescending(c => c.Metadata.Version);
+         this.Dispatcher.Invoke(() =>
          {
-            //if (this.Dispatcher.CheckAccess())
-            //{
-            //    this.Content = latestControl.Value as Control;
-            //}
-            //else
-            {
-               var controlsOrderedByVersion = controls.OrderByDescending(c => c.Metadata.Version);
-               this.Dispatcher.Invoke(() =>
-               {
-                  var content =
-                      controlsOrderedByVersion.Select(c => c.Value)
-                          .FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly));
-                  this.Container.Content = content;
-                  telemetryClient.TrackTrace(String.Format("Loaded version {0} {1}", Content.GetType().FullName,
-                      Content.GetType().Assembly.FullName));
-                  telemetryClient.TrackEvent("VersionChange");
-                  string version = "v" + controlsOrderedByVersion.FirstOrDefault(c => !this.excludedAssemblies.Contains(c.Value.GetType().Assembly)).Metadata.Version.ToString();
+            var content =
+                controlsOrderedByVersion.Select(c => c.Value)
+                    .FirstOrDefault(c => !this.excludedAssemblies.Contains(c.GetType().Assembly));
+            this.Container.Content = content;
+            telemetryClient.TrackTrace(String.Format("Loaded version {0} {1}", Content.GetType().FullName,
+                Content.GetType().Assembly.FullName));
+            telemetryClient.TrackEvent("VersionChange");
+            string version = "v" + controlsOrderedByVersion.FirstOrDefault(c => !this.excludedAssemblies.Contains(c.Value.GetType().Assembly)).Metadata.Version.ToString();
 
-                  string clientName = GetClientName();
-                  dashboardClient.DashboardUpdatedVersion(clientName, version);
-               });
-
-            }
-         }
+            string clientName = GetClientName();
+            dashboardClient.DashboardUpdatedVersion(clientName, version);
+         });
       }
 
       private string GetClientName()

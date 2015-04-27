@@ -1,0 +1,1 @@
+start "" ".\ServiceHost\ConsoleHost.exe" "--UseFischerTechnikController"

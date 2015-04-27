@@ -31,9 +31,12 @@ without stopping and restarting the application.
 	* Count is displayed
 3. Start Dashboard is optional
 	* use bin\StartDashboard.bat
+	* to the dashboard at a second PC us bin\StartClientAndServiceWithDashboardRunningOnSecondPC as sample
+
+You can also start client, service and dashboard with one batch bin\StartClientAndServiceAndDashboard.bat
 
 #####Batch Update:
-1. Leave application open and run bin\Client\ExecuteUpdate.bat
+1. Leave application open and run bin\StartServiceAndClientUpdate.bat
 * Service is updated to Version 2.0.0.0
 * Client is updated to Version 2.0.0.0 (Count, Count Big and Count Small is displayed)
 

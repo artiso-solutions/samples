@@ -9,7 +9,11 @@ namespace Shell
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private string errorMessage;
+       public MainWindowViewModel()
+       {
+       }
+
+       private string errorMessage;
         public string ErrorMessage
         {
             get
