@@ -13,7 +13,7 @@ In our demo environment we have build a [fischertechnik model](http://www.fische
 
 A second service is connected to this FischertechnikService and counts the pieces. This is the CounterService.
 
-Than a client applications displays the count. This is the ItemCounterClient.
+Then a client applications displays the count. This is the ItemCounterClient.
 
 Additional a DispatcherService is used to connect the client with the correct version of the service.
 
