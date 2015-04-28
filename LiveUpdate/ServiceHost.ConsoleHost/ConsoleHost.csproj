@@ -144,7 +144,7 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(TargetDir)*.bat $(TargetDir)..\ /F /R /Y /I</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)*.bat" "$(TargetDir)..\" /F /R /Y /I</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
